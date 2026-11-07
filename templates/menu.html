@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - Il Ducale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Encabezado Desktop -->
+    <header class="navbar">
+        <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
+
+        <nav class="nav-links">
+            <a href="/pedidos">Pedidos</a>
+            <span class="divider">|</span>
+            <a href="/menu" class="active">Menu</a>
+            <span class="divider">|</span>
+            <a href="/nosotros">Nosotros</a>
+            <span class="divider">|</span>
+            <a href="/perfil">Perfil</a>
+            <span class="divider">|</span>
+            <a href="/logout" class="btn-logout">Cerrar sesión</a>
+        </nav>
+
+        <h1 class="mobile-title">MENU</h1>
+
+        <div class="logo-header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        </div>
+    </header>
+
+    <!-- Menú desplegable lateral (Móvil) -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <h2 class="user-name">{{ session.get('usuario', 'INVITADO') | upper }}</h2>
+
+        <nav class="drawer-links">
+            <a href="/pedidos" class="drawer-btn">Pedidos</a>
+            <a href="/menu" class="drawer-btn">Menu</a>
+            <a href="/nosotros" class="drawer-btn">Nosotros</a>
+            <a href="/perfil" class="drawer-btn">Perfil</a>
+            <a href="/logout" class="drawer-btn logout-drawer-btn">Cerrar sesión</a>
+        </nav>
+
+        <button class="close-drawer-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <span class="arrow-back-icon">&#10140;</span>
+        </button>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="menu-container">
+        <div class="menu-card-wrapper">
+            <div class="menu-grid">
+                <a href="/categoria/comidas" class="category-card">
+                    <img src="{{ url_for('static', filename='btn_comidas.png') }}" alt="Comidas">
+                </a>
+                <a href="/categoria/postres" class="category-card">
+                    <img src="{{ url_for('static', filename='btn_postres.png') }}" alt="Postres">
+                </a>
+                <a href="/categoria/bebidas" class="category-card">
+                    <img src="{{ url_for('static', filename='btn_bebidas.png') }}" alt="Bebidas">
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const openBtn = document.getElementById('openMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const drawer = document.getElementById('mobileDrawer');
+
+        openBtn.addEventListener('click', () => {
+            drawer.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            drawer.classList.remove('active');
+        });
+    </script>
+
+</body>
+</html>

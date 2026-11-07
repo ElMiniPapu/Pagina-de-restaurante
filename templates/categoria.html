@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }} - Il Ducale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="category-page-container">
+        <!-- Encabezado con Botón de Regreso y Logo -->
+        <header class="category-header">
+            <a href="/menu" class="btn-back-category" aria-label="Volver al menú">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </a>
+            
+            <div class="logo-header-category">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+            </div>
+        </header>
+
+        <!-- Título Dinámico -->
+        <h1 class="category-title">{{ titulo }}</h1>
+
+        <!-- Lista de Productos -->
+        <div class="products-list">
+            {% for producto in productos %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ url_for('static', filename=producto[3]) }}" alt="{{ producto[1] }}">
+                </div>
+                
+                <div class="product-info">
+                    <h2>{{ producto[1] }}</h2>
+                    <p class="product-price">${{ "{:,.0f}".format(producto[2]).replace(',', '.') }}</p>
+                </div>
+
+                <button type="button" class="btn-add" data-precio="{{ producto[2] }}">AÑADIR</button>
+            </div>
+            {% else %}
+            <p class="no-products">No hay productos disponibles en esta categoría.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Notificación Flotante (Barra de Pedido) -->
+        <a href="/pedidos" class="cart-notification" id="cartNotification">
+            <div class="cart-left">
+                <div class="cart-icon">
+                    <img src="{{ url_for('static', filename='icono_platillo.png') }}" alt="Icono Platillo">
+                </div>
+                <div class="cart-text">
+                    <p class="cart-count"><span id="totalItems">0</span> Platillos a tu orden</p>
+                    <p class="cart-subtext">Toca para revisar o pedir a mesa</p>
+                </div>
+            </div>
+            <div class="cart-price" id="totalPrice">$0</div>
+        </a>
+    </div>
+
+    <!-- JavaScript para manejar el conteo y la suma -->
+<script>
+    const buttons = document.querySelectorAll('.btn-add');
+    const notification = document.getElementById('cartNotification');
+    const countSpan = document.getElementById('totalItems');
+    const priceDiv = document.getElementById('totalPrice');
+
+    function updateCartUI() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let totalCount = 0;
+        let totalAmount = 0;
+
+        cart.forEach(item => {
+            totalCount += item.cantidad;
+            totalAmount += item.precio * item.cantidad;
+        });
+
+        if (totalCount > 0) {
+            countSpan.innerText = totalCount;
+            priceDiv.innerText = '$' + totalAmount.toLocaleString('es-AR');
+            notification.classList.add('visible');
+        } else {
+            notification.classList.remove('visible');
+        }
+    }
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const card = button.closest('.product-card');
+            const nombre = card.querySelector('.product-info h2').innerText;
+            const precio = parseFloat(button.getAttribute('data-precio'));
+            const imagen = card.querySelector('.product-image img').getAttribute('src');
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingIndex = cart.findIndex(i => i.nombre === nombre);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].cantidad++;
+            } else {
+                cart.push({ nombre, precio, imagen, cantidad: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', updateCartUI);
+</script>
+
+</body>
+</html>

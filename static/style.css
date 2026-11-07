@@ -1,0 +1,1094 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ffffff;
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* --- ESTILOS DE PÁGINAS CENTRADAS (INDEX, LOGIN, REGISTRO) --- */
+.centered-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Logo superior derecho */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.logo-container img {
+    width: 130px;
+    height: auto;
+}
+
+/* Tarjeta Centrada */
+.main-card {
+    background-color: #f5f5f5;
+    width: 380px;
+    padding: 50px 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+/* Botones de Index */
+.btn {
+    width: 100%;
+    padding: 16px 10px;
+    font-size: 1.3rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: block;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: #ffffff;
+    color: #c41818;
+    border: 2px solid #c41818;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-light {
+    background-color: #ffffff;
+    color: #c41818;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.btn-solid {
+    background-color: #c41818;
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 5px 15px rgba(196, 24, 24, 0.3);
+}
+
+/* Botón Volver */
+.btn-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: #c41818;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.arrow-icon {
+    color: white;
+    font-size: 2rem;
+    transform: rotate(180deg);
+    display: inline-block;
+    line-height: 0;
+}
+
+/* Formulario Login / Registro */
+.form-card {
+    padding: 40px 30px;
+}
+
+.form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.08);
+    font-size: 1rem;
+    outline: none;
+}
+
+.btn-submit {
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.flash-messages {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.error-msg {
+    color: #c41818;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- ESTILOS DE LA PÁGINA DEL MENÚ --- */
+.navbar {
+    background-color: #c41818;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    position: relative;
+    width: 100%;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Cinzel', serif;
+}
+
+.nav-links a.active {
+    text-decoration: underline;
+}
+
+.divider {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.logo-header {
+    position: absolute;
+    right: 30px;
+    top: 5px;
+}
+
+.logo-header img {
+    width: 90px;
+    height: auto;
+    background-color: white;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.menu-container {
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    max-width: 1100px;
+    width: 100%;
+}
+
+.category-card {
+    flex: 1;
+    display: block;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.category-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 25px;
+    display: block;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.03);
+}
+/* --- ESTILOS DE ESCRITORIO BASE PARA EL MENÚ --- */
+.hamburger-btn,
+.mobile-title {
+    display: none;
+}
+
+.menu-card-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- ADAPTACIÓN RESPONSIVE PARA CELULARES (MÓVIL) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Cambio de la cabecera a fondo blanco */
+    .navbar {
+        background-color: #ffffff;
+        height: 80px;
+        padding: 10px 20px;
+        box-shadow: none;
+    }
+
+    /* Ocultamos los enlaces del menú horizontal */
+    .nav-links {
+        display: none;
+    }
+
+    /* Mostramos el botón hamburguesa en negro/rojo */
+    .hamburger-btn {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 2.2rem;
+        cursor: pointer;
+        color: #000000;
+        padding: 0;
+        line-height: 1;
+    }
+
+    /* Mostramos el título MENU central en rojo */
+    .mobile-title {
+        display: block;
+        color: #c41818;
+        font-family: 'Cinzel', serif;
+        font-size: 1.8rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        margin: 0;
+    }
+
+    /* Ajuste del logo para la esquina superior derecha */
+    .logo-header {
+        position: static;
+    }
+
+    .logo-header img {
+        width: 75px;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    /* 2. Contenedor gris/blanco redondeado que envuelve las tarjetas */
+    .menu-container {
+        padding: 20px 15px;
+    }
+
+    .menu-card-wrapper {
+        background-color: #f5f5f5;
+        border-radius: 25px;
+        padding: 25px 15px;
+        max-width: 380px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Disposición vertical de las tarjetas en celular */
+    .menu-grid {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .category-card {
+        width: 100%;
+    }
+
+    .category-card img {
+        border-radius: 20px;
+    }
+}
+
+/* --- ESTILOS DEL MENÚ DESPLEGABLE MÓVIL (DRAWER) --- */
+.mobile-drawer {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Estructura de la tarjeta flotante roja */
+    .mobile-drawer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 20px;
+        left: -320px; /* Oculto fuera de pantalla por defecto */
+        width: 280px;
+        background-color: #aa1212;
+        border-radius: 25px;
+        padding: 35px 20px 25px 20px;
+        box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: left 0.3s ease-in-out;
+    }
+
+    /* Clase que activa la visibilidad al pulsar el botón */
+    .mobile-drawer.active {
+        left: 15px;
+    }
+
+    /* Nombre del usuario logueado */
+    .user-name {
+        color: #ffffff;
+        font-family: 'Cinzel', serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    /* Lista de botones internos */
+    .drawer-links {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .drawer-btn {
+        background-color: #f5f5f5;
+        color: #c41818;
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        font-size: 1.3rem;
+        text-align: center;
+        text-decoration: none;
+        padding: 12px 10px;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        display: block;
+    }
+
+    /* Botón blanco redondo con flecha hacia la izquierda */
+    .close-drawer-btn {
+        background-color: #ffffff;
+        border: none;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        align-self: flex-end;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .arrow-back-icon {
+        color: #c41818;
+        font-size: 1.8rem;
+        font-weight: bold;
+        transform: rotate(180deg);
+        display: inline-block;
+        line-height: 0;
+    }
+}
+
+/* --- ESTILOS DE VISTA DE CATEGORÍAS (COMIDAS, POSTRES, BEBIDAS) --- */
+.category-page-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    min-height: 100vh;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.btn-back-category {
+    width: 55px;
+    height: 55px;
+    background-color: #c41818;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease;
+}
+
+.btn-back-category:active {
+    transform: scale(0.92);
+}
+
+.logo-header-category img {
+    width: 80px;
+    height: auto;
+}
+
+.category-title {
+    text-align: center;
+    color: #c41818;
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.product-card {
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    gap: 12px;
+}
+
+.product-image img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+}
+
+.product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-info h2 {
+    font-size: 1.05rem;
+    color: #222222;
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+}
+
+.product-price {
+    font-size: 1.15rem;
+    color: #111111;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+.btn-add {
+    background-color: #ffffff;
+    color: #c41818;
+    border: 2px solid #c41818;
+    border-radius: 12px;
+    padding: 8px 18px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s ease;
+}
+
+.btn-add:active {
+    transform: scale(0.95);
+}
+
+/* --- NOTIFICACIÓN FLOTANTE DE ORDEN (CARRITO) --- */
+.cart-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    width: 90%;
+    max-width: 440px;
+    background-color: #a31818;
+    border-radius: 20px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Mostrar cuando se hace clic en Añadir */
+.cart-notification.visible {
+    transform: translateX(-50%) translateY(0);
+}
+
+.cart-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cart-icon img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    display: block;
+}
+
+.cart-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cart-count {
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.cart-subtext {
+    color: #f0b0b0;
+    font-size: 0.8rem;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.cart-price {
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* --- ESTILOS DE LA PÁGINA PEDIDOS A MESA --- */
+.pedidos-container {
+    padding: 10px 15px 30px 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.pedidos-card {
+    background-color: #a31818;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 420px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.pedidos-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 25px 25px 15px 25px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.ticket-icon {
+    width: 40px;
+    height: auto;
+}
+
+.pedidos-header h2 {
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.pedidos-list {
+    padding: 20px 15px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-item-card {
+    background-color: #f5f5f5;
+    border-radius: 18px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.item-img img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-details h3 {
+    font-size: 0.95rem;
+    color: #222222;
+    font-family: Arial, sans-serif;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.item-price {
+    font-size: 0.95rem;
+    color: #333333;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+.quantity-controls {
+    background-color: #ffffff;
+    border: 2px solid #a31818;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    gap: 10px;
+}
+
+.quantity-controls button {
+    background: none;
+    border: none;
+    color: #a31818;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.quantity-controls span {
+    color: #a31818;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.05rem;
+}
+
+.empty-cart-msg {
+    color: #ffffff;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1.1rem;
+}
+
+.pedidos-footer {
+    padding: 20px 25px 30px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-label {
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+}
+
+.total-amount {
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.btn-pedir-cuenta {
+    background-color: #f5f5f5;
+    color: #a31818;
+    border: none;
+    border-radius: 20px;
+    padding: 16px 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    text-align: center;
+    transition: transform 0.1s ease;
+}
+
+.btn-pedir-cuenta:active {
+    transform: scale(0.98);
+}
+
+/* --- ESTILOS DE LA PÁGINA NOSOTROS --- */
+.overflow-visible {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.nosotros-card {
+    position: relative;
+    padding: 70px 25px 40px 25px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.nosotros-logo {
+    position: absolute;
+    top: -65px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nosotros-logo img {
+    width: 130px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.nosotros-text {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: Arial, sans-serif;
+    color: #222222;
+    font-size: 1.05rem;
+    line-height: 1.4;
+}
+
+.nosotros-redes {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.nosotros-redes h2 {
+    color: #c41818;
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.nosotros-redes h2 span {
+    font-size: 1.6rem;
+}
+
+.red-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 200px;
+    justify-content: flex-start;
+}
+
+.red-item img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.red-item span {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #000000;
+}
+
+/* --- ESTILOS DE LA PÁGINA PERFIL --- */
+.page-title-red {
+    text-align: center;
+    color: #c41818;
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-top: 20px;
+    letter-spacing: 2px;
+}
+
+.perfil-card {
+    position: relative;
+    padding: 60px 25px 40px 25px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 380px;
+}
+
+.perfil-logo {
+    position: absolute;
+    top: -50px;
+    right: -20px;
+}
+
+.perfil-logo img {
+    width: 110px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.perfil-info-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.perfil-info-group label {
+    font-family: 'Cinzel', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.perfil-field-box {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.08);
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    color: #444444;
+}
+
+/* Vista Invitado */
+.perfil-invitado-card {
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invitado-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.invitado-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: #000000;
+    font-weight: 500;
+}
+
+.btn-registrarse-perfil {
+    margin-top: auto;
+    width: 100%;
+}
+
+/* --- ESTILOS DEL TICKET DE COMPRA --- */
+.ticket-page-bg {
+    background-color: #ffffff; /* Fondo cambiado a blanco */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.ticket-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* Sombra suave para destacar sobre fondo blanco */
+    position: relative;
+    padding: 25px 20px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Bordes en zigzag tipo ticket recortado */
+.zigzag-top, .zigzag-bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-size: 15px 15px;
+}
+
+.zigzag-top {
+    top: -10px;
+    background-image: linear-gradient(-135deg, #ffffff 50%, transparent 50%), linear-gradient(135deg, #ffffff 50%, transparent 50%);
+}
+
+.zigzag-bottom {
+    bottom: -10px;
+    background-image: linear-gradient(-45deg, #ffffff 50%, transparent 50%), linear-gradient(45deg, #ffffff 50%, transparent 50%);
+}
+
+.ticket-store-name {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #000000;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.ticket-datetime {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #333333;
+    margin-bottom: 15px;
+}
+
+.ticket-divider {
+    border-top: 2px dashed #000000;
+    margin: 15px 0;
+}
+
+.ticket-table-header, .ticket-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.ticket-table-header {
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.col-art { flex: 2; text-align: left; }
+.col-cant { flex: 1; text-align: center; }
+.col-precio-u { flex: 1.2; text-align: right; }
+.col-precio-t { flex: 1.2; text-align: right; }
+
+.ticket-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #222222;
+}
+
+.ticket-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #000000;
+}
+
+.ticket-footer {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.ticket-thanks {
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: #333333;
+    margin-bottom: 15px;
+}
+
+/* Reemplazo de Código de Barras por Número de Pedido */
+.ticket-order-number-box {
+    border: 2px solid #000000;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    width: 100%;
+    background-color: #f9f9f9;
+}
+
+.order-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #666666;
+    letter-spacing: 1px;
+}
+
+.order-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #c41818;
+    letter-spacing: 3px;
+}
+
+.ticket-actions {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 380px;
+}
+
+/* Botón de cerrar sesión en Desktop */
+.nav-links .btn-logout {
+    color: #e74c3c; /* Rojo suave para destacar */
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-links .btn-logout:hover {
+    color: #c0392b;
+}
+
+/* Botón de cerrar sesión en el Drawer móvil */
+.drawer-links .logout-drawer-btn {
+    color: #e74c3c;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 15px;
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Ducale - Ristorante Italiano</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="centered-page">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        </div>
+
+        <div class="main-card">
+            <a href="{{ url_for('login') }}" class="btn btn-outline">INICIAR SESIÓN</a>
+            <a href="{{ url_for('invitado') }}" class="btn btn-light">INVITADO</a>
+            <a href="{{ url_for('registro') }}" class="btn btn-solid">REGISTRARME</a>
+        </div>
+    </div>
+</body>
+</html>

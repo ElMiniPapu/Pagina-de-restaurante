@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket de Compra - Il Ducale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="ticket-page-bg">
+
+    <div class="ticket-container">
+        <!-- Borde dentado superior -->
+        <div class="zigzag-top"></div>
+
+        <div class="ticket-body">
+            <!-- Nombre de la tienda -->
+            <h1 class="ticket-store-name">{{ tienda }}</h1>
+            <p class="ticket-datetime">{{ fecha_hora }}</p>
+
+            <div class="ticket-divider"></div>
+
+            <!-- Cabecera de la tabla -->
+            <div class="ticket-table-header">
+                <span class="col-art">ARTÍCULO</span>
+                <span class="col-cant">CANT.</span>
+                <span class="col-precio-u">PRECIO U.</span>
+                <span class="col-precio-t">PRECIO</span>
+            </div>
+
+            <!-- Lista de Artículos -->
+            <div class="ticket-items">
+                {% for item in productos %}
+                <div class="ticket-row">
+                    <span class="col-art">{{ item.nombre }}</span>
+                    <span class="col-cant">{{ item.cantidad if item.cantidad else 1 }}</span>
+                    <span class="col-precio-u">${{ "{:,.0f}".format(item.precio) }}</span>
+                    <span class="col-precio-t">${{ "{:,.0f}".format(item.precio * (item.cantidad if item.cantidad else 1)) }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="ticket-divider"></div>
+
+            <!-- Total -->
+            <div class="ticket-total-row">
+                <span>TOTAL</span>
+                <span>${{ "{:,.0f}".format(total) }}</span>
+            </div>
+
+            <!-- Mensaje y Número de Pedido (reemplazo del código de barras) -->
+            <div class="ticket-footer">
+                <p class="ticket-thanks">¡GRACIAS POR TU COMPRA!</p>
+                <div class="ticket-order-number-box">
+                    <span class="order-label">N° DE PEDIDO</span>
+                    <span class="order-number">{{ numero_pedido }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Borde dentado inferior -->
+        <div class="zigzag-bottom"></div>
+    </div>
+
+    <div class="ticket-actions">
+        <a href="/menu" class="btn btn-solid">VOLVER AL MENÚ</a>
+    </div>
+
+</body>
+</html>

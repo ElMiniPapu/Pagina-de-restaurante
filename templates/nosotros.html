@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros - Il Ducale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Encabezado Móvil y Escritorio -->
+    <header class="navbar">
+        <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
+
+        <nav class="nav-links">
+            <a href="/pedidos">Pedidos</a>
+            <span class="divider">|</span>
+            <a href="/menu">Menu</a>
+            <span class="divider">|</span>
+            <a href="/nosotros" class="active">Nosotros</a>
+            <span class="divider">|</span>
+            <a href="/perfil">Perfil</a>
+            <span class="divider">|</span>
+            <a href="/logout" class="btn-logout">Cerrar sesión</a>
+        </nav>
+    </header>
+
+    <!-- Menú Desplegable Lateral (Móvil) -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <h2 class="user-name">{{ session.get('usuario', 'INVITADO') | upper }}</h2>
+        <nav class="drawer-links">
+            <a href="/pedidos" class="drawer-btn">Pedidos</a>
+            <a href="/menu" class="drawer-btn">Menu</a>
+            <a href="/nosotros" class="drawer-btn">Nosotros</a>
+            <a href="/perfil" class="drawer-btn">Perfil</a>
+            <a href="/logout" class="drawer-btn logout-drawer-btn">Cerrar sesión</a>
+        </nav>
+        <button class="close-drawer-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <span class="arrow-back-icon">&#10140;</span>
+        </button>
+    </div>
+
+    <!-- Contenido Principal Centrado -->
+    <main class="centered-page overflow-visible">
+        <div class="main-card nosotros-card">
+            
+            <div class="nosotros-logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+            </div>
+
+            <div class="nosotros-text">
+                <p>Somos una de los restaurantes mas inovadores y de lujo del pais.</p>
+                <p>Contamos con la mejor carne y verduras de todo el pais, para brindarte el major sabor.</p>
+            </div>
+
+            <div class="nosotros-redes">
+                <h2>Enterate mas en<br><span>nuestras redes</span></h2>
+
+                <div class="red-item">
+                    <img src="{{ url_for('static', filename='icon_instagram.png') }}" alt="Instagram">
+                    <span>Il_Ducale</span>
+                </div>
+
+                <div class="red-item">
+                    <img src="{{ url_for('static', filename='icon_whatsapp.png') }}" alt="WhatsApp">
+                    <span>3584021091</span>
+                </div>
+
+                <div class="red-item">
+                    <img src="{{ url_for('static', filename='icon_tiktok.png') }}" alt="TikTok">
+                    <span>Il_Ducale</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const openBtn = document.getElementById('openMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const drawer = document.getElementById('mobileDrawer');
+
+        if(openBtn && closeBtn && drawer) {
+            openBtn.addEventListener('click', () => drawer.classList.add('active'));
+            closeBtn.addEventListener('click', () => drawer.classList.remove('active'));
+        }
+    </script>
+
+</body>
+</html>

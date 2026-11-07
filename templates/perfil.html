@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Il Ducale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header class="navbar">
+        <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
+
+        <nav class="nav-links">
+            <a href="/pedidos">Pedidos</a>
+            <span class="divider">|</span>
+            <a href="/menu">Menu</a>
+            <span class="divider">|</span>
+            <a href="/nosotros">Nosotros</a>
+            <span class="divider">|</span>
+            <a href="/perfil" class="active">Perfil</a>
+            <span class="divider">|</span>
+            <a href="/logout" class="btn-logout">Cerrar sesión</a>
+        </nav>
+    </header>
+
+    <!-- Menú Desplegable Lateral (Móvil) -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <h2 class="user-name">{{ session.get('usuario', 'INVITADO') | upper }}</h2>
+        <nav class="drawer-links">
+            <a href="/pedidos" class="drawer-btn">Pedidos</a>
+            <a href="/menu" class="drawer-btn">Menu</a>
+            <a href="/nosotros" class="drawer-btn">Nosotros</a>
+            <a href="/perfil" class="drawer-btn">Perfil</a>
+            <a href="/logout" class="drawer-btn logout-drawer-btn">Cerrar sesión</a>
+        </nav>
+        <button class="close-drawer-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <span class="arrow-back-icon">&#10140;</span>
+        </button>
+    </div>
+
+    <!-- Título de la sección -->
+    <h1 class="page-title-red">PERFIL</h1>
+
+    <!-- Contenido del Perfil -->
+    <main class="centered-page overflow-visible" style="min-height: auto;">
+        {% if not session.get('email') or session.get('es_invitado') %}
+    
+    <div class="main-card perfil-card perfil-invitado-card">
+        <div class="perfil-logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        </div>
+
+        <div class="invitado-content">
+            <h2 class="invitado-title">INVITADO</h2>
+        </div>
+
+        <a href="/registro" class="btn btn-solid btn-registrarse-perfil">REGISTRARME</a>
+    </div>
+
+{% else %}
+
+    <div class="main-card perfil-card">
+        <div class="perfil-logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        </div>
+
+        <div class="perfil-info-group">
+            <label>Nombre:</label>
+            <div class="perfil-field-box">{{ session.get('usuario') }}</div>
+        </div>
+
+        <div class="perfil-info-group">
+            <label>Mail:</label>
+            <div class="perfil-field-box">{{ session.get('email') }}</div>
+        </div>
+
+        <div class="perfil-info-group">
+            <label>Contraseña:</label>
+            <div class="perfil-field-box">{{ session.get('password') }}</div>
+        </div>
+    </div>
+
+{% endif %}
+    </main>
+
+    <script>
+        const openBtn = document.getElementById('openMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const drawer = document.getElementById('mobileDrawer');
+
+        if(openBtn && closeBtn && drawer) {
+            openBtn.addEventListener('click', () => drawer.classList.add('active'));
+            closeBtn.addEventListener('click', () => drawer.classList.remove('active'));
+        }
+    </script>
+
+</body>
+</html>
