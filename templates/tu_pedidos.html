@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Pedido - Il Ducale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Encabezado Desktop -->
+    <header class="navbar">
+        <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
+
+        <nav class="nav-links">
+            <a href="/tu_pedidos" class="active">Tu Pedido</a>
+            <span class="divider">|</span>
+            <a href="/menu">Menu</a>
+            <span class="divider">|</span>
+            <a href="/nosotros">Nosotros</a>
+            <span class="divider">|</span>
+            <a href="/perfil">Perfil</a>
+            <span class="divider">|</span>
+            <a href="/logout" class="btn-logout">Cerrar sesión</a>
+        </nav>
+
+        <h1 class="mobile-title">MENU</h1>
+
+        <div class="logo-header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        </div>
+    </header>
+
+    <!-- Menú Desplegable Lateral (Móvil) -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <h2 class="user-name">{{ session.get('usuario', 'INVITADO') | upper }}</h2>
+        <nav class="drawer-links">
+            <a href="/tu_pedidos" class="drawer-btn">Tu Pedidos</a>
+            <a href="/menu" class="drawer-btn">Menu</a>
+            <a href="/nosotros" class="drawer-btn">Nosotros</a>
+            <a href="/perfil" class="drawer-btn">Perfil</a>
+            <a href="/logout" class="drawer-btn logout-drawer-btn">Cerrar sesión</a>
+        </nav>
+        <button class="close-drawer-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <span class="arrow-back-icon">&#10140;</span>
+        </button>
+    </div>
+
+    <!-- Tarjeta Principal de Pedidos -->
+    <main class="pedidos-container">
+        <div class="pedidos-card">
+            
+            <div class="pedidos-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="{{ url_for('static', filename='icono_ticket.png') }}" alt="Icono Ticket" class="ticket-icon">
+                    <h2>PEDIDO A MESA</h2>
+                </div>
+                <!-- Botón para vaciar el carrito -->
+                <button type="button" class="btn-vaciar-carrito" onclick="vaciarCarrito()" title="Vaciar todo el pedido">
+                    🗑️ Vaciar
+                </button>
+            </div>
+
+            <div class="pedidos-list" id="pedidosList">
+                <!-- Se llena dinámicamente desde JavaScript / LocalStorage -->
+            </div>
+
+            <div class="pedidos-footer">
+                <div class="total-row">
+                    <span class="total-label">TOTAL</span>
+                    <span class="total-amount" id="orderTotal">$0</span>
+                </div>
+
+                <form id="formPedirCuenta" action="/pedir_a_cuenta" method="POST">
+                    <input type="hidden" name="cart_data" id="cartDataInput">
+                    <button type="submit" class="btn-pedir-cuenta" id="btnPedirCuenta">
+                        PEDIR A CUENTA
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const openBtn = document.getElementById('openMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const drawer = document.getElementById('mobileDrawer');
+
+        if(openBtn && closeBtn && drawer) {
+            openBtn.addEventListener('click', () => drawer.classList.add('active'));
+            closeBtn.addEventListener('click', () => drawer.classList.remove('active'));
+        }
+
+        function renderOrder() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const container = document.getElementById('pedidosList');
+            const totalElement = document.getElementById('orderTotal');
+            const btnPedir = document.getElementById('btnPedirCuenta');
+            const btnVaciar = document.querySelector('.btn-vaciar-carrito');
+            
+            container.innerHTML = '';
+            let totalSum = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="empty-cart-msg">No has añadido platillos aún.</p>';
+                totalElement.innerText = '$0';
+                if (btnPedir) btnPedir.disabled = true;
+                if (btnVaciar) btnVaciar.style.display = 'none';
+                return;
+            }
+
+            if (btnPedir) btnPedir.disabled = false;
+            if (btnVaciar) btnVaciar.style.display = 'block';
+
+            cart.forEach((item, index) => {
+                totalSum += item.precio * item.cantidad;
+
+                const itemCard = document.createElement('div');
+                itemCard.className = 'order-item-card';
+                itemCard.innerHTML = `
+                    <div class="item-img">
+                        <img src="${item.imagen}" alt="${item.nombre}">
+                    </div>
+                    <div class="item-details">
+                        <h3>${item.nombre}</h3>
+                        <p class="item-price">$${(item.precio * item.cantidad).toLocaleString('es-AR')}</p>
+                    </div>
+                    <div class="quantity-controls">
+                        <button onclick="updateQuantity(${index}, -1)">-</button>
+                        <span>${item.cantidad}</span>
+                        <button onclick="updateQuantity(${index}, 1)">+</button>
+                    </div>
+                `;
+                container.appendChild(itemCard);
+            });
+
+            totalElement.innerText = '$' + totalSum.toLocaleString('es-AR');
+        }
+
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index]) {
+                cart[index].cantidad += change;
+                if (cart[index].cantidad <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderOrder();
+        }
+
+        function vaciarCarrito() {
+            if (confirm("¿Estás seguro de que quieres eliminar todos los artículos de tu pedido?")) {
+                localStorage.removeItem('cart');
+                renderOrder();
+            }
+        }
+
+        const formPedir = document.getElementById('formPedirCuenta');
+        if (formPedir) {
+            formPedir.addEventListener('submit', function (e) {
+                const cart = localStorage.getItem('cart') || '[]';
+                document.getElementById('cartDataInput').value = cart;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderOrder);
+    </script>
+
+</body>
+</html>

@@ -3,76 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedidos - Il Ducale</title>
+    <title>Pedidos Chef - Il Ducale</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
- <!-- Encabezado Desktop -->
-<header class="navbar">
-    <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
+    <!-- Encabezado para Chef -->
+    <header class="navbar">
+        <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
 
-    <nav class="nav-links">
-        <a href="/pedidos">Pedidos</a>
-        <span class="divider">|</span>
-        <a href="/menu">Menu</a>
-        <span class="divider">|</span>
-        <a href="/nosotros">Nosotros</a>
-        <span class="divider">|</span>
-        <a href="/perfil">Perfil</a>
-        <span class="divider">|</span>
-        <!-- Botón de Cerrar Sesión -->
-        <a href="/logout" class="btn-logout">Cerrar sesión</a>
-    </nav>
+        <nav class="nav-links">
+            <a href="/pedidos" class="active">Pedidos</a>
+            <span class="divider">|</span>
+            <a href="/menu_chef">Menu</a>
+            <span class="divider">|</span>
+            <a href="/perfil">Perfil</a>
+            <span class="divider">|</span>
+            <a href="/logout" class="btn-logout">Cerrar sesión</a>
+        </nav>
 
-    <h1 class="mobile-title">MENU</h1>
+        <h1 class="mobile-title">PEDIDOS</h1>
 
-    <div class="logo-header">
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        <div class="logo-header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        </div>
+    </header>
+
+    <!-- Menú Desplegable Lateral (Móvil) -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <h2 class="user-name">{{ session.get('usuario', 'CHEF') | upper }}</h2>
+
+        <nav class="drawer-links">
+            <a href="/pedidos" class="drawer-btn">Pedidos</a>
+            <a href="/menu_chef" class="drawer-btn">Menu</a>
+            <a href="/perfil" class="drawer-btn">Perfil</a>
+            <a href="/logout" class="drawer-btn logout-drawer-btn">Cerrar sesión</a>
+        </nav>
+
+        <button class="close-drawer-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <span class="arrow-back-icon">&#10140;</span>
+        </button>
     </div>
-</header>
 
-<!-- Menú Desplegable Lateral (Móvil) -->
-<div class="mobile-drawer" id="mobileDrawer">
-    <h2 class="user-name">{{ session.get('usuario', 'INVITADO') | upper }}</h2>
-    <nav class="drawer-links">
-        <a href="/pedidos" class="drawer-btn">Pedidos</a>
-        <a href="/menu" class="drawer-btn">Menu</a>
-        <a href="/nosotros" class="drawer-btn">Nosotros</a>
-        <a href="/perfil" class="drawer-btn">Perfil</a>
-        <!-- Botón de Cerrar Sesión Móvil -->
-        <a href="/logout" class="drawer-btn logout-drawer-btn">Cerrar sesión</a>
-    </nav>
-    <button class="close-drawer-btn" id="closeMenuBtn" aria-label="Cerrar menú">
-        <span class="arrow-back-icon">&#10140;</span>
-    </button>
-</div>
-
-    <!-- Tarjeta Principal de Pedidos -->
-    <main class="pedidos-container">
-        <div class="pedidos-card">
+    <!-- Contenedor Principal de Pedidos -->
+    <main class="chef-pedidos-container">
+        <div class="chef-pedidos-card">
             
-            <div class="pedidos-header">
-                <img src="{{ url_for('static', filename='icono_ticket.png') }}" alt="Icono Ticket" class="ticket-icon">
-                <h2>PEDIDO A MESA</h2>
-            </div>
+            <h1 class="chef-section-title">PEDIDOS</h1>
 
-            <div class="pedidos-list" id="pedidosList">
-                <!-- Se llena dinámicamente desde JavaScript / LocalStorage -->
-            </div>
-
-            <div class="pedidos-footer">
-                <div class="total-row">
-                    <span class="total-label">TOTAL</span>
-                    <span class="total-amount" id="orderTotal">$0</span>
+            <div class="chef-pedidos-grid">
+                {% for pedido in pedidos %}
+                <div class="chef-order-card">
+                    <div class="chef-order-badge">{{ pedido.numero }}</div>
+                    
+                    <h2 class="chef-client-name">{{ pedido.cliente }}</h2>
+                    
+                    {% if pedido.estado == 'Entregado' %}
+                        <!-- Estado final: Verde con texto ENTREGADO -->
+                        <div class="chef-status-box status-entregado">
+                            ENTREGADO
+                        </div>
+                    {% elif pedido.estado == 'Listo' %}
+                        <!-- Al hacer clic en LISTO, cambia a ENTREGADO -->
+                        <form action="/entregar_pedido_chef/{{ pedido.id_real }}" method="POST" style="width: 100%;">
+                            <button type="submit" class="chef-status-box status-listo btn-listo-action">
+                                LISTO
+                            </button>
+                        </form>
+                    {% else %}
+                        <!-- Estado Pendiente: Clic en la hora ingresa al detalle -->
+                        <a href="/pedido_detalle/{{ pedido.id_real }}" class="chef-status-box status-pendiente" style="text-decoration: none;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span>{{ pedido.hora }}</span>
+                        </a>
+                    {% endif %}
                 </div>
-
-                <form id="formPedirCuenta" action="/pedir_a_cuenta" method="POST">
-                    <input type="hidden" name="cart_data" id="cartDataInput">
-                    <button type="submit" class="btn-pedir-cuenta" id="btnPedirCuenta">
-                        PEDIR A CUENTA
-                    </button>
-                </form>
+                {% else %}
+                <p class="no-orders-msg">No hay pedidos registrados.</p>
+                {% endfor %}
             </div>
 
         </div>
@@ -87,71 +98,6 @@
             openBtn.addEventListener('click', () => drawer.classList.add('active'));
             closeBtn.addEventListener('click', () => drawer.classList.remove('active'));
         }
-
-        function renderOrder() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const container = document.getElementById('pedidosList');
-            const totalElement = document.getElementById('orderTotal');
-            const btnPedir = document.getElementById('btnPedirCuenta');
-            
-            container.innerHTML = '';
-            let totalSum = 0;
-
-            if (cart.length === 0) {
-                container.innerHTML = '<p class="empty-cart-msg">No has añadido platillos aún.</p>';
-                totalElement.innerText = '$0';
-                if (btnPedir) btnPedir.disabled = true;
-                return;
-            }
-
-            if (btnPedir) btnPedir.disabled = false;
-
-            cart.forEach((item, index) => {
-                totalSum += item.precio * item.cantidad;
-
-                const itemCard = document.createElement('div');
-                itemCard.className = 'order-item-card';
-                itemCard.innerHTML = `
-                    <div class="item-img">
-                        <img src="${item.imagen}" alt="${item.nombre}">
-                    </div>
-                    <div class="item-details">
-                        <h3>${item.nombre}</h3>
-                        <p class="item-price">$${(item.precio * item.cantidad).toLocaleString('es-AR')}</p>
-                    </div>
-                    <div class="quantity-controls">
-                        <button onclick="updateQuantity(${index}, -1)">-</button>
-                        <span>${item.cantidad}</span>
-                        <button onclick="updateQuantity(${index}, 1)">+</button>
-                    </div>
-                `;
-                container.appendChild(itemCard);
-            });
-
-            totalElement.innerText = '$' + totalSum.toLocaleString('es-AR');
-        }
-
-        function updateQuantity(index, change) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            if (cart[index]) {
-                cart[index].cantidad += change;
-                if (cart[index].cantidad <= 0) {
-                    cart.splice(index, 1);
-                }
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderOrder();
-        }
-
-        const formPedir = document.getElementById('formPedirCuenta');
-        if (formPedir) {
-            formPedir.addEventListener('submit', function (e) {
-                const cart = localStorage.getItem('cart') || '[]';
-                document.getElementById('cartDataInput').value = cart;
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', renderOrder);
     </script>
 
 </body>

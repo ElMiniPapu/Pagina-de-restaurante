@@ -13,7 +13,7 @@
         <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
 
         <nav class="nav-links">
-            <a href="/pedidos">Pedidos</a>
+            <a href="/tu_pedidos">Tu Pedidos</a>
             <span class="divider">|</span>
             <a href="/menu">Menu</a>
             <span class="divider">|</span>
@@ -29,7 +29,7 @@
     <div class="mobile-drawer" id="mobileDrawer">
         <h2 class="user-name">{{ session.get('usuario', 'INVITADO') | upper }}</h2>
         <nav class="drawer-links">
-            <a href="/pedidos" class="drawer-btn">Pedidos</a>
+            <a href="/tu_pedidos" class="drawer-btn">Tu Pedidos</a>
             <a href="/menu" class="drawer-btn">Menu</a>
             <a href="/nosotros" class="drawer-btn">Nosotros</a>
             <a href="/perfil" class="drawer-btn">Perfil</a>

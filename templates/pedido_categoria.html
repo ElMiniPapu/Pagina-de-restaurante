@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pedido.categoria_titulo }} - Pedido #{{ pedido.numero }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
+
+        <nav class="nav-links">
+            <a href="/pedidos" class="active">Pedidos</a>
+            <span class="divider">|</span>
+            <a href="/menu_chef">Menu</a>
+            <span class="divider">|</span>
+            <a href="/perfil">Perfil</a>
+            <span class="divider">|</span>
+            <a href="/logout" class="btn-logout">Cerrar sesión</a>
+        </nav>
+
+        <h1 class="mobile-title">PEDIDOS</h1>
+
+        <div class="logo-header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        </div>
+    </header>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+        <h2 class="user-name">{{ session.get('usuario', 'CHEF') | upper }}</h2>
+        <nav class="drawer-links">
+            <a href="/pedidos" class="drawer-btn">Pedidos</a>
+            <a href="/menu_chef" class="drawer-btn">Menu</a>
+            <a href="/perfil" class="drawer-btn">Perfil</a>
+            <a href="/logout" class="drawer-btn logout-drawer-btn">Cerrar sesión</a>
+        </nav>
+        <button class="close-drawer-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <span class="arrow-back-icon">&#10140;</span>
+        </button>
+    </div>
+
+    <main class="chef-pedidos-container">
+        <div class="chef-pedidos-card category-detail-card">
+            
+            <div class="cat-detail-left">
+                <h1 class="cat-main-title">{{ pedido.categoria_titulo }}</h1>
+                <p class="detail-client-name">{{ pedido.cliente }}</p>
+                <p class="detail-order-number">N° DE PEDIDO: <strong>{{ pedido.numero }}</strong></p>
+                <div class="detail-time-wrapper">
+                    <span>Tiempo:</span>
+                    <div class="chef-status-box status-pendiente detail-time-badge">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>{{ pedido.hora }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cat-detail-right">
+                <div class="items-table-container">
+                    <div class="items-table-header">
+                        <span>Articulos</span>
+                        <span>Cant.</span>
+                    </div>
+                    <div class="items-table-body">
+                        {% for art in pedido.articulos %}
+                        <div class="items-table-row">
+                            <span class="item-name">{{ art.nombre }}</span>
+                            <span class="item-qty">{{ art.cantidad }}</span>
+                        </div>
+                        {% else %}
+                        <div class="items-table-row">
+                            <span class="item-name">Sin artículos en esta categoría</span>
+                            <span class="item-qty">0</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Botón para marcar únicamente ESTA categoría como lista -->
+                <form action="/marcar_categoria_lista/{{ pedido.id_real }}/{{ pedido.categoria_titulo }}" method="POST" style="width: 100%;">
+                    <button type="submit" class="btn-marcar-listo-cat">
+                        MARCAR COMO LISTO
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const openBtn = document.getElementById('openMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const drawer = document.getElementById('mobileDrawer');
+
+        if(openBtn && closeBtn && drawer) {
+            openBtn.addEventListener('click', () => drawer.classList.add('active'));
+            closeBtn.addEventListener('click', () => drawer.classList.remove('active'));
+        }
+    </script>
+
+</body>
+</html>

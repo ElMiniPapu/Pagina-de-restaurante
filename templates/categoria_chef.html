@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }} - Edición Chef</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="category-page-container">
+        <header class="category-header">
+            <a href="/menu_chef" class="btn-back-category" aria-label="Volver al menú chef">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </a>
+            
+            <div class="logo-header-category">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+            </div>
+        </header>
+
+        <h1 class="category-title">{{ titulo }}</h1>
+
+        <!-- Lista de Productos con Edición -->
+        <div class="products-list">
+            {% for producto in productos %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ url_for('static', filename=producto[3]) }}" alt="{{ producto[1] }}">
+                </div>
+                
+                <div class="product-info">
+                    <h2>{{ producto[1] }}</h2>
+                    <p class="product-price">${{ "{:,.0f}".format(producto[2]).replace(',', '.') }}</p>
+                </div>
+
+                <!-- Botón de Editar con Prompt Interactivo -->
+                <form action="/actualizar_precio" method="POST" onsubmit="return editarPrecio(this, '{{ producto[1] }}', '{{ producto[2] }}')">
+                    <input type="hidden" name="producto_id" value="{{ producto[0] }}">
+                    <input type="hidden" name="nuevo_precio" class="input-nuevo-precio">
+                    <button type="submit" class="btn-editar-chef">EDITAR</button>
+                </form>
+            </div>
+            {% else %}
+            <p class="no-products">No hay productos en esta categoría.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function editarPrecio(form, nombre, precioActual) {
+            const nuevoPrecio = prompt(`Ingrese el nuevo precio para "${nombre}":`, precioActual);
+            if (nuevoPrecio !== null && nuevoPrecio.trim() !== "" && !isNaN(nuevoPrecio)) {
+                form.querySelector('.input-nuevo-precio').value = nuevoPrecio;
+                return true;
+            }
+            return false;
+        }
+    </script>
+
+</body>
+</html>

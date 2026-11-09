@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Pedido #{{ pedido.numero }} - Il Ducale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">&#9776;</button>
+
+        <nav class="nav-links">
+            <a href="/pedidos" class="active">Pedidos</a>
+            <span class="divider">|</span>
+            <a href="/menu_chef">Menu</a>
+            <span class="divider">|</span>
+            <a href="/perfil">Perfil</a>
+            <span class="divider">|</span>
+            <a href="/logout" class="btn-logout">Cerrar sesión</a>
+        </nav>
+
+        <h1 class="mobile-title">PEDIDOS</h1>
+
+        <div class="logo-header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Il Ducale Logo">
+        </div>
+    </header>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+        <h2 class="user-name">{{ session.get('usuario', 'CHEF') | upper }}</h2>
+        <nav class="drawer-links">
+            <a href="/pedidos" class="drawer-btn">Pedidos</a>
+            <a href="/menu_chef" class="drawer-btn">Menu</a>
+            <a href="/perfil" class="drawer-btn">Perfil</a>
+            <a href="/logout" class="drawer-btn logout-drawer-btn">Cerrar sesión</a>
+        </nav>
+        <button class="close-drawer-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <span class="arrow-back-icon">&#10140;</span>
+        </button>
+    </div>
+
+    <main class="chef-pedidos-container">
+        <div class="chef-pedidos-card detail-card">
+            
+            <h1 class="chef-section-title mobile-hide">PEDIDOS</h1>
+
+            <div class="detail-header-info">
+                <h2 class="detail-client-name">{{ pedido.cliente }}</h2>
+                <p class="detail-order-number">N° DE PEDIDO: <strong>{{ pedido.numero }}</strong></p>
+                <div class="detail-time-wrapper">
+                    <span>Tiempo:</span>
+                    <div class="chef-status-box status-pendiente detail-time-badge">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>{{ pedido.hora }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloques fijos de las 3 Categorías -->
+            <div class="detail-categories-grid">
+                
+                <!-- 1. BEBIDAS -->
+                <div class="category-status-card">
+                    <h3>BEBIDAS</h3>
+                    {% if 'BEBIDAS' in pedido.categorias_listas or pedido.categorias.BEBIDAS|length == 0 %}
+                        <button class="btn-cat-status cat-ready" disabled style="cursor:default; opacity:0.9;">Listo</button>
+                    {% else %}
+                        <a href="/pedido_categoria/{{ pedido.id_real }}/BEBIDAS" class="btn-cat-status cat-start" style="text-decoration:none; display:block; text-align:center;">
+                            Empezar
+                        </a>
+                    {% endif %}
+                </div>
+
+                <!-- 2. COMIDAS -->
+                <div class="category-status-card">
+                    <h3>COMIDAS</h3>
+                    {% if 'COMIDAS' in pedido.categorias_listas or pedido.categorias.COMIDAS|length == 0 %}
+                        <button class="btn-cat-status cat-ready" disabled style="cursor:default; opacity:0.9;">Listo</button>
+                    {% else %}
+                        <a href="/pedido_categoria/{{ pedido.id_real }}/COMIDAS" class="btn-cat-status cat-start" style="text-decoration:none; display:block; text-align:center;">
+                            Empezar
+                        </a>
+                    {% endif %}
+                </div>
+
+                <!-- 3. POSTRES -->
+                <div class="category-status-card">
+                    <h3>POSTRES</h3>
+                    {% if 'POSTRES' in pedido.categorias_listas or pedido.categorias.POSTRES|length == 0 %}
+                        <button class="btn-cat-status cat-ready" disabled style="cursor:default; opacity:0.9;">Listo</button>
+                    {% else %}
+                        <a href="/pedido_categoria/{{ pedido.id_real }}/POSTRES" class="btn-cat-status cat-start" style="text-decoration:none; display:block; text-align:center;">
+                            Empezar
+                        </a>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <!-- Botón Principal -->
+            <form action="/completar_pedido_chef/{{ pedido.id_real }}" method="POST" class="form-marcar-listo">
+                <button type="submit" class="btn-marcar-listo-main">
+                    MARCAR COMO LISTO
+                </button>
+            </form>
+
+        </div>
+    </main>
+
+    <script>
+        const openBtn = document.getElementById('openMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const drawer = document.getElementById('mobileDrawer');
+
+        if(openBtn && closeBtn && drawer) {
+            openBtn.addEventListener('click', () => drawer.classList.add('active'));
+            closeBtn.addEventListener('click', () => drawer.classList.remove('active'));
+        }
+    </script>
+
+</body>
+</html>

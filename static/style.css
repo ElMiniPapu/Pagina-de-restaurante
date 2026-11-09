@@ -1092,3 +1092,449 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 15px;
 }
+
+/* Estilo del botón vaciar en la cabecera de la tarjeta */
+.pedidos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-vaciar-carrito {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-vaciar-carrito:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-vaciar-carrito:active {
+    transform: scale(0.95);
+}
+
+/* Botón de edición exclusivo para el Chef */
+.btn-editar-chef {
+    background-color: #ffffff;
+    color: #c41818;
+    border: 2px solid #c41818;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s ease, background-color 0.2s;
+}
+
+.btn-editar-chef:hover {
+    background-color: #fff0f0;
+}
+
+.btn-editar-chef:active {
+    transform: scale(0.95);
+}
+
+/* --- ESTILOS DE PANTALLA PEDIDOS CHEF --- */
+.chef-pedidos-container {
+    padding: 20px 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.chef-pedidos-card {
+    background-color: #f5f5f5;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 380px;
+    padding: 25px 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.chef-pedidos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.chef-order-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px 15px 15px 15px;
+    position: relative;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Badge con número de pedido (004, 005...) */
+.chef-order-badge {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background-color: #c41818;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 0.95rem;
+    padding: 4px 18px;
+    border-radius: 15px;
+    box-shadow: 0 3px 8px rgba(196, 24, 24, 0.3);
+}
+
+.chef-client-name {
+    font-family: Arial, sans-serif;
+    font-size: 1.15rem;
+    color: #333333;
+    font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Botón con el icono de reloj y la hora */
+.chef-time-box {
+    background-color: #c41818;
+    color: #ffffff;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 1.25rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(196, 24, 24, 0.25);
+}
+
+.no-orders-msg {
+    text-align: center;
+    color: #666666;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    padding: 30px 0;
+}
+
+.chef-pedidos-container {
+    padding: 30px 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.chef-pedidos-card {
+    background-color: #f5f5f5;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 900px;
+    padding: 30px 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.chef-section-title {
+    font-family: 'Cinzel', serif;
+    color: #c41818;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.chef-pedidos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.chef-order-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 25px 15px 15px 15px;
+    position: relative;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chef-order-badge {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background-color: #c41818;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 4px 14px;
+    border-radius: 12px;
+}
+
+.chef-client-name {
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    color: #333333;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.chef-status-box {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+
+.status-pendiente {
+    background-color: #c41818;
+    color: #ffffff;
+}
+
+.status-listo {
+    background-color: #ffffff;
+    color: #c41818;
+    border: 2px solid #c41818;
+}
+
+.status-entregado {
+    background-color: #70c469;
+    color: #ffffff;
+}
+
+/* --- ESTILOS DE DETALLE DE PEDIDO --- */
+.detail-card {
+    max-width: 750px;
+}
+
+.detail-header-info {
+    margin-bottom: 25px;
+}
+
+.detail-client-name {
+    font-family: Arial, sans-serif;
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.detail-order-number {
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 12px;
+}
+
+.detail-time-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.detail-time-badge {
+    width: auto !important;
+    padding: 6px 16px !important;
+    border-radius: 12px !important;
+}
+
+.detail-categories-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: #ffffff;
+    padding: 25px 15px;
+    border-radius: 20px;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.category-status-card {
+    background: #f9f9f9;
+    border-radius: 18px;
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    min-width: 170px;
+}
+
+.category-status-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    color: #111;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.btn-cat-status {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 15px;
+    border: none;
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.cat-ready {
+    background-color: #70c469;
+    color: #ffffff;
+}
+
+.cat-start {
+    background-color: #c41818;
+    color: #ffffff;
+}
+
+.form-marcar-listo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-marcar-listo-main {
+    width: 100%;
+    max-width: 400px;
+    background-color: #c41818;
+    color: #ffffff;
+    border: none;
+    padding: 14px 0;
+    border-radius: 15px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(196, 24, 24, 0.3);
+    transition: transform 0.1s ease;
+}
+
+.btn-marcar-listo-main:active {
+    transform: scale(0.97);
+}
+
+/* --- ESTILOS DE VISTA ARTÍCULOS POR CATEGORÍA --- */
+.category-detail-card {
+    max-width: 850px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+}
+
+.cat-detail-left {
+    flex: 1;
+}
+
+.cat-main-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: #111111;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.cat-detail-right {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.items-table-container {
+    background-color: #dcdcdc;
+    border-radius: 20px;
+    padding: 20px 25px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    min-height: 220px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.items-table-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #111;
+    margin-bottom: 15px;
+}
+
+.items-table-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: Arial, sans-serif;
+    font-size: 1.05rem;
+    color: #333;
+    padding: 8px 0;
+}
+
+.btn-marcar-listo-cat {
+    width: 100%;
+    background-color: #c41818;
+    color: #ffffff;
+    border: none;
+    padding: 14px 0;
+    border-radius: 15px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.15rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(196, 24, 24, 0.3);
+    transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.btn-marcar-listo-cat:active {
+    transform: scale(0.97);
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    .category-detail-card {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .cat-main-title {
+        font-size: 2rem;
+        text-align: center;
+    }
+}
+
+.btn-listo-action {
+    cursor: pointer;
+    border: 2px solid #c41818;
+    background-color: #ffffff;
+    color: #c41818;
+    transition: all 0.2s ease;
+}
+
+.btn-listo-action:hover {
+    background-color: #c41818;
+    color: #ffffff;
+}
